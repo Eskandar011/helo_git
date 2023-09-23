@@ -7,11 +7,15 @@ sequenceDiagram
 
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
-    server-->>browser: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    server-->>browser: HTTP status code 302
+    deactivate server
+    Note right of browser: the server asks the browser to do a new HTTP GET request to the address defined in the header's Location - the address notes.
+ 
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML document
     deactivate server
 
-    Note right of browser: HTTP status code 302
-    
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: the css file
